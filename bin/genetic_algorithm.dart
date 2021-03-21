@@ -1,5 +1,28 @@
-import 'package:genetic_algorithm/genetic_algorithm.dart' as genetic_algorithm;
+import 'population.dart';
 
-void main(List<String> arguments) {
-  print('Hello world: ${genetic_algorithm.calculate()}!');
+enum CrossMethods { one_point, two_points, three_points, homo }
+
+enum MutationMethods { one_point }
+
+class GeneticAlgorithm {
+  double startRange;
+  double endRange;
+  int populationAmount;
+  int bitsNumber;
+  int epochsAmount;
+  double crossProbability;
+  double mutationProbability;
+  double inversionProbability;
+  int eliteStrategyAmount;
+  bool maximization;
+  Population population;
+
+  //selection args for best and tournament
+  int chromosomeAmount;
+
+  GeneticAlgorithm(this.population);
+
+  void run() {
+    print('run...');
+  }
 }
