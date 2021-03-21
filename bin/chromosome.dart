@@ -1,5 +1,4 @@
-
-class Chromosome{
+class Chromosome {
   var genes;
 
   Chromosome(this.genes);

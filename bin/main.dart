@@ -1,7 +1,6 @@
-
 import 'connection.dart';
 
-void main(){
+void main() {
   var connection = Connection();
   connection.connect();
 }

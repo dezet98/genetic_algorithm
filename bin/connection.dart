@@ -1,7 +1,6 @@
 import 'genetic_algorithm_create.dart';
 
 class Connection {
-
   Connection();
 
   void connect() {
