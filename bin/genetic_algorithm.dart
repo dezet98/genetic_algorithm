@@ -1,5 +1,32 @@
-import 'package:genetic_algorithm/genetic_algorithm.dart' as genetic_algorithm;
+import 'cross.dart';
+import 'elite_strategy.dart';
+import 'inversion.dart';
+import 'mutation.dart';
+import 'population.dart';
+import 'selection.dart';
 
-void main(List<String> arguments) {
-  print('Hello world: ${genetic_algorithm.calculate()}!');
+class GeneticAlgorithm {
+  int epochsAmount;
+  Inversion inversion;
+  EliteStrategy eliteStrategy;
+  Selection selection;
+  Cross cross;
+  Mutation mutation;
+  Population population;
+
+  GeneticAlgorithm(this.epochsAmount, this.inversion, this.eliteStrategy,
+      this.selection, this.cross, this.mutation, this.population) {
+    runAlgorithm();
+  }
+
+  void runAlgorithm() {
+    for (var i = 1; i <= epochsAmount; i++) {
+      population.evaluate();
+      eliteStrategy.eliteStrategy(population);
+      selection.selection(population);
+      cross.cross(population);
+      mutation.mutation(population);
+      inversion.inversion(population);
+    }
+  }
 }
