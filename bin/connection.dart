@@ -4,7 +4,7 @@ class Connection {
   Connection();
 
   void connect() {
-    GeneticAlgorithmCreate(5.5, 5.6, 2, 3, 4, 3.4, 4.5, 5.6, 6, true, 'best',
-        'roulette', 'tournament');
+    GeneticAlgorithmCreate(-10, 10, 10, 5, 0.2, 0.2, 0.2, 4,
+        'minimal_grade', 'best', 'one_point_cross', 'one_point_mutation');
   }
 }

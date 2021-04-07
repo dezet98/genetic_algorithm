@@ -6,9 +6,8 @@ abstract class Cross {
 
 class OnePointCross implements Cross {
   var crossProbability;
-  var maximization;
 
-  OnePointCross(this.crossProbability, this.maximization);
+  OnePointCross(this.crossProbability);
 
   @override
   Population cross(population) {
@@ -19,9 +18,8 @@ class OnePointCross implements Cross {
 
 class TwoPointsCross implements Cross {
   var crossProbability;
-  var maximization;
 
-  TwoPointsCross(this.crossProbability, this.maximization);
+  TwoPointsCross(this.crossProbability);
 
   @override
   Population cross(population) {
@@ -32,9 +30,8 @@ class TwoPointsCross implements Cross {
 
 class ThreePointsCross implements Cross {
   var crossProbability;
-  var maximization;
 
-  ThreePointsCross(this.crossProbability, this.maximization);
+  ThreePointsCross(this.crossProbability);
 
   @override
   Population cross(population) {

@@ -1,6 +1,7 @@
 import 'cross.dart';
 import 'elite_strategy.dart';
 import 'genetic_algorithm.dart';
+import 'grade_strategy.dart';
 import 'inversion.dart';
 import 'mutation.dart';
 import 'population.dart';
@@ -19,16 +20,18 @@ class GeneticAlgorithmCreate {
   static const TWO_POINTS_MUTATION = 'two_points_mutation';
   static const EDGE_MUTATION = 'edge_mutation';
 
+  static const MAXIMAL_GRADE = 'maximal_grade';
+  static const MINIMAL_GRADE = 'minimal_grade';
+
   double startRange;
   double endRange;
-  int chromosomeAccuracy;
   int populationAmount;
   int epochsAmount;
   double crossProbability;
   double mutationProbability;
   double inversionProbability;
   int eliteStrategyAmount;
-  bool maximization;
+  String gradeStrategy;
   String selection;
   String cross;
   String mutation;
@@ -36,7 +39,6 @@ class GeneticAlgorithmCreate {
   GeneticAlgorithmCreate(
       this.startRange,
       this.endRange,
-      this.chromosomeAccuracy,
       this.populationAmount,
       this.epochsAmount,
       this.crossProbability, // prawdopodobieństwo krzyżowania to 80-90%
@@ -44,7 +46,7 @@ class GeneticAlgorithmCreate {
       this.inversionProbability,
       this.eliteStrategyAmount,
       // strategia elitarna podczas oceny wybierz najlepszego lub % najlepszych i dodaj ich do nowej populacji od razu
-      this.maximization,
+      this.gradeStrategy,
       this.selection,
       this.cross,
       this.mutation) {
@@ -55,18 +57,17 @@ class GeneticAlgorithmCreate {
     Selection selectionChoose;
     switch (selection) {
       case BEST:
-        selectionChoose = Best(maximization);
+        selectionChoose = Best();
         break;
 
       case ROULETTE:
-        selectionChoose = Roulette(maximization);
+        selectionChoose = Roulette();
         break;
 
       case TOURNAMENT:
-        selectionChoose = Tournament(maximization);
+        selectionChoose = Tournament();
         break;
-    }
-    ;
+    };
 
     return selectionChoose;
   }
@@ -75,15 +76,15 @@ class GeneticAlgorithmCreate {
     Cross crossChoose;
     switch (cross) {
       case ONE_POINT_CROSS:
-        crossChoose = OnePointCross(crossProbability, maximization);
+        crossChoose = OnePointCross(crossProbability);
         break;
 
       case TWO_POINTS_CROSS:
-        crossChoose = TwoPointsCross(crossProbability, maximization);
+        crossChoose = TwoPointsCross(crossProbability);
         break;
 
       case THREE_POINTS_CROSS:
-        crossChoose = ThreePointsCross(crossProbability, maximization);
+        crossChoose = ThreePointsCross(crossProbability);
         break;
     }
     ;
@@ -95,15 +96,15 @@ class GeneticAlgorithmCreate {
     Mutation mutationChoose;
     switch (mutation) {
       case ONE_POINT_MUTATION:
-        mutationChoose = OnePointMutation(mutationProbability, maximization);
+        mutationChoose = OnePointMutation(mutationProbability);
         break;
 
       case TWO_POINTS_MUTATION:
-        mutationChoose = TwoPointsMutation(mutationProbability, maximization);
+        mutationChoose = TwoPointsMutation(mutationProbability);
         break;
 
       case EDGE_MUTATION:
-        mutationChoose = EdgeMutation(mutationProbability, maximization);
+        mutationChoose = EdgeMutation(mutationProbability);
         break;
     }
     ;
@@ -111,15 +112,32 @@ class GeneticAlgorithmCreate {
     return mutationChoose;
   }
 
+  GradeStrategy gradeStrategyChoose(gradeStrategy) {
+    GradeStrategy gradeStrategyChoose;
+    switch (gradeStrategy) {
+      case MAXIMAL_GRADE:
+        gradeStrategyChoose = MaximalGrade();
+        break;
+
+      case MINIMAL_GRADE:
+        gradeStrategyChoose = MinimalGrade();
+        break;
+    }
+    ;
+
+    return gradeStrategyChoose;
+  }
+
   void createGeneticAlgorithm() {
-    var inversion = Inversion(inversionProbability, maximization);
-    var eliteStrategy = EliteStrategy(eliteStrategyAmount, maximization);
-    var selection = chooseSelection('best');
-    var cross = crossChoose('one_point_cross');
-    var mutation = mutationChoose('one_point_mutation');
+    var inversion = Inversion(inversionProbability);
+    var eliteStrategy = EliteStrategy(eliteStrategyAmount);
+    var selection = chooseSelection(this.selection);
+    var cross = crossChoose(this.cross);
+    var mutation = mutationChoose(this.mutation);
+    var gradeStrategy = gradeStrategyChoose(this.gradeStrategy);
     var population = Population(startRange, endRange, populationAmount);
 
     GeneticAlgorithm(epochsAmount, inversion, eliteStrategy, selection, cross,
-        mutation, population);
+        mutation, gradeStrategy, population);
   }
 }

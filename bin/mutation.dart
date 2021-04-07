@@ -6,9 +6,8 @@ abstract class Mutation {
 
 class OnePointMutation implements Mutation {
   var mutationProbability;
-  var maximization;
 
-  OnePointMutation(this.mutationProbability, this.maximization);
+  OnePointMutation(this.mutationProbability);
 
   @override
   Population mutation(population) {
@@ -19,9 +18,8 @@ class OnePointMutation implements Mutation {
 
 class TwoPointsMutation implements Mutation {
   var mutationProbability;
-  var maximization;
 
-  TwoPointsMutation(this.mutationProbability, this.maximization);
+  TwoPointsMutation(this.mutationProbability);
 
   @override
   Population mutation(population) {
@@ -32,9 +30,8 @@ class TwoPointsMutation implements Mutation {
 
 class EdgeMutation implements Mutation {
   var mutationProbability;
-  var maximization;
 
-  EdgeMutation(this.mutationProbability, this.maximization);
+  EdgeMutation(this.mutationProbability);
 
   @override
   Population mutation(population) {

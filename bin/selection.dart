@@ -5,9 +5,7 @@ abstract class Selection {
 }
 
 class Best implements Selection {
-  var maximization;
-
-  Best(this.maximization);
+  Best();
 
   @override
   Population selection(population) {
@@ -17,9 +15,7 @@ class Best implements Selection {
 }
 
 class Roulette implements Selection {
-  var maximization;
-
-  Roulette(this.maximization);
+  Roulette();
 
   @override
   Population selection(population) {
@@ -29,9 +25,7 @@ class Roulette implements Selection {
 }
 
 class Tournament implements Selection {
-  var maximization;
-
-  Tournament(this.maximization);
+  Tournament();
 
   @override
   Population selection(population) {
