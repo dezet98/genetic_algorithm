@@ -11,7 +11,7 @@ class EliteStrategy {
     var populationWithoutElite = Population.fromPopulation(population.startRange, population.endRange,
     population.populationAmount, population.chromosomeSize, population.getChromosomes());
 
-    // print(populationWithoutElite.getChromosomes());
+    print(populationWithoutElite.getChromosomes());
 
     population.getChromosomes().sort((a, b) => b.getGrade().compareTo(a.getGrade()));
 
@@ -19,18 +19,11 @@ class EliteStrategy {
       eliteChromosome.add(population.getChromosomes()[i]);
     }
 
-    // print(population);
-    // print(eliteChromosome);
-
     var chromosomes = populationWithoutElite.getChromosomes(); // zupełnie nowy obiekt
 
     for(var i = 0; i< eliteChromosome.length; i++){
       chromosomes.remove(eliteChromosome[i]);
     }
-
-    populationWithoutElite.setChromosomes(chromosomes);
-
-    // print(populationWithoutElite.chromosomes);
 
     return populationWithoutElite;
   }

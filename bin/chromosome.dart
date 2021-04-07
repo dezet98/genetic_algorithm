@@ -36,4 +36,9 @@ class Chromosome{
   void setGrade(grade) {
     this.grade = grade;
   }
+
+  @override
+  String toString(){
+    return grade.toString();
+  }
 }
