@@ -10,9 +10,9 @@ class Best implements Selection {
   List<Chromosome> bestChromosome = [];
 
   Best(this.selectionProbability);
+
   @override
   Population selection(Population population) {
-
     // population.getChromosomes().sort((a, b) => b.getGrade().compareTo(a.getGrade()));
     //
     // var selectionElements = (population.getChromosomes().length * selectionProbability).toInt();
@@ -28,7 +28,6 @@ class Best implements Selection {
 }
 
 class Roulette implements Selection {
-
   @override
   Population selection(Population population) {
     // TODO: implement select
@@ -37,7 +36,6 @@ class Roulette implements Selection {
 }
 
 class Tournament implements Selection {
-
   @override
   Population selection(Population population) {
     // TODO: implement select

@@ -1,4 +1,4 @@
-class Chromosome{
+class Chromosome {
   var firstGenes;
   var secondGenes;
   double grade;
@@ -38,7 +38,7 @@ class Chromosome{
   }
 
   @override
-  String toString(){
+  String toString() {
     return grade.toString();
   }
 }
