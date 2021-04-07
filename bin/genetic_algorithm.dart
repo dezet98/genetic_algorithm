@@ -31,12 +31,12 @@ class GeneticAlgorithm {
   void runAlgorithm() {
     for (var i = 1; i <= epochsAmount; i++) {
       gradeStrategy.evaluate(population);
-      population = eliteStrategy.getBestFromPopulation(population); // zrobione
+      population = eliteStrategy.getBestFromPopulation(population);
       population = selection.selection(population);
       population = cross.cross(population);
       mutation.mutation(population);
       inversion.inversion(population);
-      population = eliteStrategy.setBestToPopulation(population); // zrobione
+      population = eliteStrategy.setBestToPopulation(population);
     }
     findTheBest(population);
   }

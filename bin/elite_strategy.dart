@@ -19,7 +19,7 @@ class EliteStrategy {
       eliteChromosome.add(population.getChromosomes()[i]);
     }
 
-    var chromosomes = populationWithoutElite.getChromosomes(); // zupełnie nowy obiekt
+    var chromosomes = populationWithoutElite.getChromosomes();
 
     for(var i = 0; i< eliteChromosome.length; i++){
       chromosomes.remove(eliteChromosome[i]);

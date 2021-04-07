@@ -27,6 +27,7 @@ class GeneticAlgorithmCreate {
   double endRange;
   int populationAmount;
   int epochsAmount;
+  double selectionProbability;
   double crossProbability;
   double mutationProbability;
   double inversionProbability;
@@ -41,6 +42,7 @@ class GeneticAlgorithmCreate {
       this.endRange,
       this.populationAmount,
       this.epochsAmount,
+      this.selectionProbability,
       this.crossProbability, // prawdopodobieństwo krzyżowania to 80-90%
       this.mutationProbability, // prawdopodobieństwo mutacji to około 20%
       this.inversionProbability,
@@ -57,7 +59,7 @@ class GeneticAlgorithmCreate {
     Selection selectionChoose;
     switch (selection) {
       case BEST:
-        selectionChoose = Best();
+        selectionChoose = Best(selectionProbability);
         break;
 
       case ROULETTE:
