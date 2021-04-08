@@ -31,6 +31,15 @@ class Chromosome {
     return secondGenes;
   }
 
+  List<int> getProperGenes(k) {
+    if(k == 1){
+      return firstGenes;
+    }
+    else{
+      return secondGenes;
+    }
+  }
+
   double getGrade() {
     return grade;
   }

@@ -32,17 +32,18 @@ class EliteStrategy {
     }
 
     populationWithoutElite.setChromosomes(chromosomes);
+    populationWithoutElite.setPopulationAmount(chromosomes.length);
+
     return populationWithoutElite;
   }
 
-  Population setBestToPopulation(Population population) {
+  void setBestToPopulation(Population population) {
     var chromosomes = population.getChromosomes();
     for (var i = 0; i < eliteChromosome.length; i++) {
       chromosomes.add(eliteChromosome[i]);
     }
-    eliteChromosome = [];
-
     population.setChromosomes(chromosomes);
-    return population;
+    population.setPopulationAmount(population.getPopulationAmount() + eliteChromosome.length);
+    eliteChromosome = [];
   }
 }

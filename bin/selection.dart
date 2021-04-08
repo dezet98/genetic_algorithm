@@ -13,15 +13,16 @@ class Best implements Selection {
 
   @override
   Population selection(Population population) {
-    // population.getChromosomes().sort((a, b) => b.getGrade().compareTo(a.getGrade()));
-    //
-    // var selectionElements = (population.getChromosomes().length * selectionProbability).toInt();
-    //
-    // for(var i = 0; i< selectionElements ;i++){
-    //   bestChromosome.add(population.getChromosomes()[i]);
-    // }
-    //
-    // population.setChromosomes(bestChromosome);
+    population.getChromosomes().sort((a, b) => b.getGrade().compareTo(a.getGrade()));
+
+    var selectionElements = (population.getChromosomes().length * selectionProbability).toInt();
+
+    for(var i = 0; i< selectionElements ;i++){
+      bestChromosome.add(population.getChromosomes()[i]);
+    }
+
+    population.setChromosomes(bestChromosome);
+    population.setPopulationAmount(bestChromosome.length);
 
     return population;
   }

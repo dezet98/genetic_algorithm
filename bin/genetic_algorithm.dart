@@ -15,6 +15,7 @@ class GeneticAlgorithm {
   Mutation mutation;
   GradeStrategy gradeStrategy;
   Population population;
+  int populationSizeWithoutElite;
 
   GeneticAlgorithm(
       this.epochsAmount,
@@ -25,20 +26,41 @@ class GeneticAlgorithm {
       this.mutation,
       this.gradeStrategy,
       this.population) {
+    populationSizeWithoutElite = population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
     runAlgorithm();
   }
 
   void runAlgorithm() {
     for (var i = 1; i <= epochsAmount; i++) {
       gradeStrategy.evaluate(population);
+      // if(i == 1){
+      //   print(population.chromosomes);
+      //   print(population.getPopulationAmount());
+      // }
       population = eliteStrategy.getBestFromPopulation(population);
+      // if(i == 1){
+      //   print(population.chromosomes);
+      //   print(population.getPopulationAmount());
+      // }
       population = selection.selection(population);
-      population = cross.cross(population);
+      // if(i == 1){
+      //   print(population.chromosomes);
+      //   print(population.getPopulationAmount());
+      // }
+      population = cross.cross(population, populationSizeWithoutElite);
+      // if(i == 1){
+      //   print(population.chromosomes);
+      //   print(population.getPopulationAmount());
+      // }
       mutation.mutation(population);
       inversion.inversion(population);
-      population = eliteStrategy.setBestToPopulation(population);
-      print(population.getChromosomes());
+      eliteStrategy.setBestToPopulation(population);
+      // if(i == 1){
+      //   print(population.chromosomes);
+      //   print(population.getPopulationAmount());
+      // }
     }
+    gradeStrategy.evaluate(population);
     findTheBest(population);
   }
 

@@ -16,6 +16,9 @@ class Population {
     generateChromosomes();
   }
 
+  Population.empty(this.startRange, this.endRange, this.populationAmount,
+      this.chromosomeSize, this.chromosomes);
+
   Population.fromPopulation(
       this.startRange,
       this.endRange,
@@ -71,11 +74,24 @@ class Population {
     return populationAmount;
   }
 
+  void setPopulationAmount(populationAmounts) {
+    populationAmount = populationAmounts;
+  }
+
+  int getChromosomeSize() {
+    return chromosomeSize;
+  }
+
   List<Chromosome> getChromosomes() {
     return chromosomes;
   }
 
   void setChromosomes(chromosomes) {
     this.chromosomes = chromosomes;
+  }
+
+  void addChromosome(Chromosome chromosome) {
+    populationAmount += 1;
+    chromosomes.add(chromosome);
   }
 }
