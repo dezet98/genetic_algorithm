@@ -1,9 +1,11 @@
 class Chromosome {
-  var firstGenes;
-  var secondGenes;
+  List<int> firstGenes;
+  List<int> secondGenes;
   double grade;
 
   Chromosome(this.firstGenes, this.secondGenes);
+
+  Chromosome.fromChromosome(this.firstGenes, this.secondGenes, this.grade);
 
   String firstGenesToString() {
     var genesFirstString = StringBuffer();

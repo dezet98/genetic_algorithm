@@ -24,6 +24,8 @@ class TwoPointsCross implements Cross {
   @override
   Population cross(population) {
     // TODO: implement select
+    // Population newPopulation = Population(population);
+
     return population;
   }
 }

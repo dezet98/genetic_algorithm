@@ -37,6 +37,7 @@ class GeneticAlgorithm {
       mutation.mutation(population);
       inversion.inversion(population);
       population = eliteStrategy.setBestToPopulation(population);
+      print(population.getChromosomes());
     }
     findTheBest(population);
   }

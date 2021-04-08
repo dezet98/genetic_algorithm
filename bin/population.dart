@@ -21,7 +21,14 @@ class Population {
       this.endRange,
       this.populationAmount,
       this.chromosomeSize,
-      this.chromosomes);
+      List<Chromosome> chromosomes) {
+    for (var i = 0; i < chromosomes.length; i++) {
+      this.chromosomes.add(Chromosome.fromChromosome(
+          List.from(chromosomes[i].getFirstGenes()),
+          List.from(chromosomes[i].getSecondGenes()),
+          chromosomes[i].getGrade()));
+    }
+  }
 
   void generateChromosomes() {
     var firstGenes = <int>[];
