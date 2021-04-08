@@ -1,9 +1,12 @@
 import 'dart:collection';
 import 'dart:math';
-
 import 'population.dart';
 
 abstract class Mutation {
+  static const ONE_POINT_MUTATION = 'one_point_mutation';
+  static const TWO_POINTS_MUTATION = 'two_points_mutation';
+  static const EDGE_MUTATION = 'edge_mutation';
+
   Population mutation(Population population);
 }
 

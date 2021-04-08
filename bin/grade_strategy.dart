@@ -3,6 +3,9 @@ import 'dart:math';
 import 'population.dart';
 
 abstract class GradeStrategy {
+  static const MAXIMAL_GRADE = 'maximal_grade';
+  static const MINIMAL_GRADE = 'minimal_grade';
+
   void evaluate(Population population);
 }
 

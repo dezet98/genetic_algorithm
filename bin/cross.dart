@@ -5,9 +5,15 @@ import 'chromosome.dart';
 import 'population.dart';
 
 abstract class Cross {
+  static const ONE_POINT_CROSS = 'one_point_cross';
+  static const TWO_POINTS_CROSS = 'two_points_cross';
+  static const THREE_POINTS_CROSS = 'three_points_cross';
+  static const HOMOGENEOUS_CROSS = 'homogeneous_cross';
+
   Population cross(Population population, int populationSizeWithoutElite);
 }
 
+// jednorodne, jednopunktowe
 class OnePointCross implements Cross {
   var crossProbability;
   var rnd = Random();

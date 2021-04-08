@@ -26,43 +26,44 @@ class GeneticAlgorithm {
       this.mutation,
       this.gradeStrategy,
       this.population) {
-    populationSizeWithoutElite = population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
+    populationSizeWithoutElite =
+        population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
     runAlgorithm();
   }
 
   void runAlgorithm() {
     for (var i = 1; i <= epochsAmount; i++) {
       gradeStrategy.evaluate(population);
-        print("**************Poczatek epoki ${i}**************");
-        print(population.chromosomes);
-        print(population.getPopulationAmount());
-        print(" ");
+      print('**************Poczatek epoki $i**************');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
 
       population = eliteStrategy.getBestFromPopulation(population);
-      print("Po Elite: ");
+      print('Po Elite: ');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
+      print(' ');
 
       population = selection.selection(population);
-      print("Po selekcji");
+      print('Po selekcji');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
+      print(' ');
 
       population = cross.cross(population, populationSizeWithoutElite);
       gradeStrategy.evaluate(population);
-      print("Po cross");
+      print('Po cross');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
+      print(' ');
 
       mutation.mutation(population);
       gradeStrategy.evaluate(population);
-      print("Po mutacji");
+      print('Po mutacji');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
+      print(' ');
 
       inversion.inversion(population);
       gradeStrategy.evaluate(population);
@@ -73,17 +74,17 @@ class GeneticAlgorithm {
 
 
       eliteStrategy.setBestToPopulation(population);
-      print("Dodanie najlepszych");
+      print('Dodanie najlepszych');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
-      print(" ");
+      print(' ');
+      print(' ');
     }
     gradeStrategy.evaluate(population);
-    print("**********OSTATECZNA POPULACJA*******");
+    print('**********OSTATECZNA POPULACJA*******');
     print(population.chromosomes);
     print(population.getPopulationAmount());
-    print(" ");
+    print(' ');
     findTheBest(population);
   }
 
