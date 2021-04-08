@@ -15,6 +15,7 @@ class GeneticAlgorithmCreate {
   static const ONE_POINT_CROSS = 'one_point_cross';
   static const TWO_POINTS_CROSS = 'two_points_cross';
   static const THREE_POINTS_CROSS = 'three_points_cross';
+  static const HOMOGENEOUS_CROSS = 'homogeneous_cross';
 
   static const ONE_POINT_MUTATION = 'one_point_mutation';
   static const TWO_POINTS_MUTATION = 'two_points_mutation';
@@ -87,6 +88,10 @@ class GeneticAlgorithmCreate {
 
       case THREE_POINTS_CROSS:
         crossChoose = ThreePointsCross(crossProbability);
+        break;
+
+      case HOMOGENEOUS_CROSS:
+        crossChoose = HomogeneousCross(crossProbability);
         break;
     }
     ;

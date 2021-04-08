@@ -10,13 +10,76 @@ abstract class Cross {
 
 class OnePointCross implements Cross {
   var crossProbability;
+  var rnd = Random();
 
   OnePointCross(this.crossProbability);
 
   @override
   Population cross(Population population, int populationSizeWithoutElite) {
-    // TODO: implement cross
-    return population;
+    var newPopulation = Population.fromPopulation(
+        population.startRange,
+        population.endRange,
+        population.getPopulationAmount(),
+        population.chromosomeSize,
+        population.getChromosomes());
+
+    while (newPopulation.getPopulationAmount() < populationSizeWithoutElite) {
+      var parents = <int>{};
+      do {
+        parents.add(
+            (rnd.nextDouble() * (newPopulation.getPopulationAmount())).toInt());
+      } while (parents.length != 2);
+
+      var crossingChance = rnd.nextDouble();
+      if (crossingChance <= crossProbability) {
+        var firstNewChromosome = <List<int>>[];
+        var secondNewChromosome = <List<int>>[];
+
+        for (var k = 1; k <= 2; k++) {
+          var crossPoints =
+              (rnd.nextDouble() * (newPopulation.getChromosomeSize())).toInt();
+
+          var firstPart1 = (newPopulation
+                  .getChromosomes()
+                  .elementAt(parents.first)
+                  .getProperGenes(k)
+                  .getRange(0, crossPoints + 1))
+              .toList();
+          var secondPart1 = (newPopulation
+                  .getChromosomes()
+                  .elementAt(parents.last)
+                  .getProperGenes(k)
+                  .getRange(crossPoints + 1, newPopulation.getChromosomeSize()))
+              .toList();
+
+          var firstPart2 = (newPopulation
+                  .getChromosomes()
+                  .elementAt(parents.last)
+                  .getProperGenes(k)
+                  .getRange(0, crossPoints + 1))
+              .toList();
+          var secondPart2 = (newPopulation
+                  .getChromosomes()
+                  .elementAt(parents.first)
+                  .getProperGenes(k)
+                  .getRange(crossPoints + 1, newPopulation.getChromosomeSize()))
+              .toList();
+
+          firstNewChromosome.add([...firstPart1, ...secondPart1]);
+          secondNewChromosome.add([...firstPart2, ...secondPart2]);
+        }
+        newPopulation.addChromosome(
+            Chromosome(firstNewChromosome[0], firstNewChromosome[1]));
+        newPopulation.addChromosome(
+            Chromosome(secondNewChromosome[0], secondNewChromosome[1]));
+      }
+    }
+    if (newPopulation.getChromosomes().length != populationSizeWithoutElite) {
+      newPopulation.getChromosomes().removeLast();
+      newPopulation
+          .setPopulationAmount(newPopulation.getPopulationAmount() - 1);
+    }
+    return newPopulation;
   }
 }
 
@@ -72,7 +135,7 @@ class TwoPointsCross implements Cross {
                   .elementAt(parents.first)
                   .getProperGenes(k)
                   .getRange(
-                      crossPoints.last + 1, population.getChromosomeSize()))
+                      crossPoints.last + 1, newPopulation.getChromosomeSize()))
               .toList();
 
           var firstPart2 = newPopulation
@@ -147,11 +210,6 @@ class ThreePointsCross implements Cross {
                     .toInt());
           } while (crossPoints.length != 3);
 
-          // print(crossPoints);
-          // print(crossPoints.first);
-          // print(crossPoints.elementAt(1));
-          // print(crossPoints.last);
-
           var firstPart1 = (newPopulation
                   .getChromosomes()
                   .elementAt(parents.first)
@@ -210,6 +268,84 @@ class ThreePointsCross implements Cross {
               [...firstPart1, ...secondPart1, ...thirdPart1, ...fourthPart1]);
           secondNewChromosome.add(
               [...firstPart2, ...secondPart2, ...thirdPart2, ...fourthPart2]);
+        }
+        newPopulation.addChromosome(
+            Chromosome(firstNewChromosome[0], firstNewChromosome[1]));
+        newPopulation.addChromosome(
+            Chromosome(secondNewChromosome[0], secondNewChromosome[1]));
+      }
+    }
+    if (newPopulation.getChromosomes().length != populationSizeWithoutElite) {
+      newPopulation.getChromosomes().removeLast();
+      newPopulation
+          .setPopulationAmount(newPopulation.getPopulationAmount() - 1);
+    }
+    return newPopulation;
+  }
+}
+
+class HomogeneousCross implements Cross {
+  var crossProbability;
+  var rnd = Random();
+
+  HomogeneousCross(this.crossProbability);
+
+  @override
+  Population cross(Population population, int populationSizeWithoutElite) {
+    var newPopulation = Population.fromPopulation(
+        population.startRange,
+        population.endRange,
+        population.getPopulationAmount(),
+        population.chromosomeSize,
+        population.getChromosomes());
+
+    while (newPopulation.getPopulationAmount() < populationSizeWithoutElite) {
+      var parents = <int>{};
+      do {
+        parents.add(
+            (rnd.nextDouble() * (newPopulation.getPopulationAmount())).toInt());
+      } while (parents.length != 2);
+
+      var crossingChance = rnd.nextDouble();
+      if (crossingChance <= crossProbability) {
+        var firstNewChromosome = <List<int>>[];
+        var secondNewChromosome = <List<int>>[];
+        for (var k = 1; k <= 2; k++) {
+          var firstPart = <int>[];
+          var secondPart = <int>[];
+
+          for (var i = 1; i < newPopulation.getChromosomeSize(); i += 2) {
+            firstPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.first)
+                .getProperGenes(k)[i - 1]);
+            firstPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.last)
+                .getProperGenes(k)[i]);
+            secondPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.first)
+                .getProperGenes(k)[i - 1]);
+            secondPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.last)
+                .getProperGenes(k)[i]);
+          }
+          if (population.getChromosomeSize() % 2 != 0) {
+            var lastGeneIndex = newPopulation.getChromosomeSize() - 1;
+            firstPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.first)
+                .getProperGenes(k)[lastGeneIndex]);
+            secondPart.add(newPopulation
+                .getChromosomes()
+                .elementAt(parents.last)
+                .getProperGenes(k)[lastGeneIndex]);
+          }
+
+          firstNewChromosome.add(firstPart);
+          secondNewChromosome.add(secondPart);
         }
         newPopulation.addChromosome(
             Chromosome(firstNewChromosome[0], firstNewChromosome[1]));
