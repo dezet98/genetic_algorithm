@@ -14,7 +14,6 @@ class MaximalGrade implements GradeStrategy {
           pow(population.decimalFirstNumber(i), 2) +
               pow(population.decimalSecondNumber(i), 2));
     }
-    print(population.getChromosomes());
   }
 }
 

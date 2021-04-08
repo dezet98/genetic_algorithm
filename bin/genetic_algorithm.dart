@@ -33,34 +33,44 @@ class GeneticAlgorithm {
   void runAlgorithm() {
     for (var i = 1; i <= epochsAmount; i++) {
       gradeStrategy.evaluate(population);
-      // if(i == 1){
-      //   print(population.chromosomes);
-      //   print(population.getPopulationAmount());
-      // }
+        print("**************Poczatek epoki ${i}**************");
+        print(population.chromosomes);
+        print(population.getPopulationAmount());
+        print(" ");
+
       population = eliteStrategy.getBestFromPopulation(population);
-      // if(i == 1){
-      //   print(population.chromosomes);
-      //   print(population.getPopulationAmount());
-      // }
+      print("Po Elite: ");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+
       population = selection.selection(population);
-      // if(i == 1){
-      //   print(population.chromosomes);
-      //   print(population.getPopulationAmount());
-      // }
+      print("Po selekcji");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+
       population = cross.cross(population, populationSizeWithoutElite);
-      // if(i == 1){
-      //   print(population.chromosomes);
-      //   print(population.getPopulationAmount());
-      // }
+      gradeStrategy.evaluate(population);
+      print("Po cross");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+
       mutation.mutation(population);
       inversion.inversion(population);
       eliteStrategy.setBestToPopulation(population);
-      // if(i == 1){
-      //   print(population.chromosomes);
-      //   print(population.getPopulationAmount());
-      // }
+      print("Dodanie najlepszych");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+      print(" ");
     }
     gradeStrategy.evaluate(population);
+    print("**********OSTATECZNA POPULACJA*******");
+    print(population.chromosomes);
+    print(population.getPopulationAmount());
+    print(" ");
     findTheBest(population);
   }
 
