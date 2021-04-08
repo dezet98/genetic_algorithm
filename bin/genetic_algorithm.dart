@@ -58,6 +58,12 @@ class GeneticAlgorithm {
       print(" ");
 
       mutation.mutation(population);
+      gradeStrategy.evaluate(population);
+      print("Po mutacji");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+
       inversion.inversion(population);
       eliteStrategy.setBestToPopulation(population);
       print("Dodanie najlepszych");
