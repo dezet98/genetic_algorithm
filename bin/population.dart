@@ -16,12 +16,8 @@ class Population {
     generateChromosomes();
   }
 
-  Population.fromPopulation(
-      this.startRange,
-      this.endRange,
-      this.populationAmount,
-      this.chromosomeSize,
-      this.chromosomes);
+  Population.fromPopulation(this.startRange, this.endRange,
+      this.populationAmount, this.chromosomeSize, this.chromosomes);
 
   void generateChromosomes() {
     var firstGenes = <int>[];

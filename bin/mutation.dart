@@ -11,7 +11,7 @@ class OnePointMutation implements Mutation {
 
   @override
   Population mutation(population) {
-    // TODO: implement mutation
+    // TODO: implement mutation DANIEL
     return population;
   }
 }
@@ -23,7 +23,7 @@ class TwoPointsMutation implements Mutation {
 
   @override
   Population mutation(population) {
-    // TODO: implement mutation
+    // TODO: implement mutation DANIEL
     return population;
   }
 }

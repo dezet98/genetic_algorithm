@@ -37,8 +37,9 @@ class GeneticAlgorithmCreate {
   String cross;
   String mutation;
 
+// todo where is
   GeneticAlgorithmCreate(
-      this.startRange,
+      {this.startRange,
       this.endRange,
       this.populationAmount,
       this.epochsAmount,
@@ -51,7 +52,7 @@ class GeneticAlgorithmCreate {
       this.gradeStrategy,
       this.selection,
       this.cross,
-      this.mutation) {
+      this.mutation}) {
     createGeneticAlgorithm();
   }
 
@@ -63,13 +64,13 @@ class GeneticAlgorithmCreate {
         break;
 
       case ROULETTE:
-        selectionChoose = Roulette();
+        selectionChoose = Roulette(selectionProbability);
         break;
 
       case TOURNAMENT:
         selectionChoose = Tournament();
         break;
-    };
+    }
 
     return selectionChoose;
   }
@@ -89,7 +90,6 @@ class GeneticAlgorithmCreate {
         crossChoose = ThreePointsCross(crossProbability);
         break;
     }
-    ;
 
     return crossChoose;
   }
@@ -109,7 +109,6 @@ class GeneticAlgorithmCreate {
         mutationChoose = EdgeMutation(mutationProbability);
         break;
     }
-    ;
 
     return mutationChoose;
   }
@@ -125,7 +124,6 @@ class GeneticAlgorithmCreate {
         gradeStrategyChoose = MinimalGrade();
         break;
     }
-    ;
 
     return gradeStrategyChoose;
   }

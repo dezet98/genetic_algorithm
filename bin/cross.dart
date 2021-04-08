@@ -4,6 +4,7 @@ abstract class Cross {
   Population cross(population);
 }
 
+// jednorodne, jednopunktowe
 class OnePointCross implements Cross {
   var crossProbability;
 
@@ -11,7 +12,7 @@ class OnePointCross implements Cross {
 
   @override
   Population cross(population) {
-    // TODO: implement select
+    // TODO: implement select DANIEL
     return population;
   }
 }
