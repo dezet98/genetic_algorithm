@@ -16,8 +16,22 @@ class Population {
     generateChromosomes();
   }
 
-  Population.fromPopulation(this.startRange, this.endRange,
-      this.populationAmount, this.chromosomeSize, this.chromosomes);
+  Population.empty(this.startRange, this.endRange, this.populationAmount,
+      this.chromosomeSize, this.chromosomes);
+
+  Population.fromPopulation(
+      this.startRange,
+      this.endRange,
+      this.populationAmount,
+      this.chromosomeSize,
+      List<Chromosome> chromosomes) {
+    for (var i = 0; i < chromosomes.length; i++) {
+      this.chromosomes.add(Chromosome.fromChromosome(
+          List.from(chromosomes[i].getFirstGenes()),
+          List.from(chromosomes[i].getSecondGenes()),
+          chromosomes[i].getGrade()));
+    }
+  }
 
   void generateChromosomes() {
     var firstGenes = <int>[];
@@ -60,11 +74,24 @@ class Population {
     return populationAmount;
   }
 
+  void setPopulationAmount(populationAmounts) {
+    populationAmount = populationAmounts;
+  }
+
+  int getChromosomeSize() {
+    return chromosomeSize;
+  }
+
   List<Chromosome> getChromosomes() {
     return chromosomes;
   }
 
   void setChromosomes(chromosomes) {
     this.chromosomes = chromosomes;
+  }
+
+  void addChromosome(Chromosome chromosome) {
+    populationAmount += 1;
+    chromosomes.add(chromosome);
   }
 }

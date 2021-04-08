@@ -15,8 +15,6 @@ class EliteStrategy {
         population.chromosomeSize,
         population.getChromosomes());
 
-    print(populationWithoutElite.getChromosomes());
-
     population
         .getChromosomes()
         .sort((a, b) => b.getGrade().compareTo(a.getGrade()));
@@ -28,20 +26,24 @@ class EliteStrategy {
     var chromosomes = populationWithoutElite.getChromosomes();
 
     for (var i = 0; i < eliteChromosome.length; i++) {
-      chromosomes.remove(eliteChromosome[i]);
+      var chromosome = chromosomes.firstWhere(
+          (element) => element.getGrade() == eliteChromosome[i].getGrade());
+      chromosomes.remove(chromosome);
     }
+
+    populationWithoutElite.setChromosomes(chromosomes);
+    populationWithoutElite.setPopulationAmount(chromosomes.length);
 
     return populationWithoutElite;
   }
 
-  Population setBestToPopulation(Population population) {
+  void setBestToPopulation(Population population) {
     var chromosomes = population.getChromosomes();
     for (var i = 0; i < eliteChromosome.length; i++) {
       chromosomes.add(eliteChromosome[i]);
     }
-    eliteChromosome = [];
-
     population.setChromosomes(chromosomes);
-    return population;
+    population.setPopulationAmount(population.getPopulationAmount() + eliteChromosome.length);
+    eliteChromosome = [];
   }
 }

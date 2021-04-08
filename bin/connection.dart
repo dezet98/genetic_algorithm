@@ -1,4 +1,8 @@
+import 'cross.dart';
 import 'genetic_algorithm_create.dart';
+import 'grade_strategy.dart';
+import 'mutation.dart';
+import 'selection.dart';
 
 class Connection {
   Connection();
@@ -14,10 +18,10 @@ class Connection {
       mutationProbability: 0.2,
       inversionProbability: 0.2,
       eliteStrategyAmount: 4,
-      gradeStrategy: 'maximal_grade',
-      selection: 'roulette',
-      cross: 'one_point_cross',
-      mutation: 'one_point_mutation',
+      gradeStrategy: GradeStrategy.MAXIMAL_GRADE,
+      selection: Selection.ROULETTE,
+      cross: Cross.ONE_POINT_CROSS,
+      mutation: Mutation.ONE_POINT_MUTATION,
     );
   }
 }

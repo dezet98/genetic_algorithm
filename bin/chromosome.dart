@@ -5,6 +5,8 @@ class Chromosome {
 
   Chromosome(this.firstGenes, this.secondGenes);
 
+  Chromosome.fromChromosome(this.firstGenes, this.secondGenes, this.grade);
+
   String firstGenesToString() {
     var genesFirstString = StringBuffer();
     for (var i = 0; i < firstGenes.length; i++) {
@@ -27,6 +29,15 @@ class Chromosome {
 
   List<int> getSecondGenes() {
     return secondGenes;
+  }
+
+  List<int> getProperGenes(k) {
+    if(k == 1){
+      return firstGenes;
+    }
+    else{
+      return secondGenes;
+    }
   }
 
   double getGrade() {

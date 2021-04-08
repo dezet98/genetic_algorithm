@@ -15,6 +15,7 @@ class GeneticAlgorithm {
   Mutation mutation;
   GradeStrategy gradeStrategy;
   Population population;
+  int populationSizeWithoutElite;
 
   GeneticAlgorithm(
       this.epochsAmount,
@@ -25,19 +26,58 @@ class GeneticAlgorithm {
       this.mutation,
       this.gradeStrategy,
       this.population) {
+    populationSizeWithoutElite =
+        population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
     runAlgorithm();
   }
 
   void runAlgorithm() {
     for (var i = 1; i <= epochsAmount; i++) {
       gradeStrategy.evaluate(population);
+      print('**************Poczatek epoki $i**************');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+
       population = eliteStrategy.getBestFromPopulation(population);
+      print('Po Elite: ');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+
       population = selection.selection(population);
-      population = cross.cross(population);
+      print('Po selekcji');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+
+      population = cross.cross(population, populationSizeWithoutElite);
+      gradeStrategy.evaluate(population);
+      print('Po cross');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+
       mutation.mutation(population);
+      gradeStrategy.evaluate(population);
+      print('Po mutacji');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+
       inversion.inversion(population);
-      population = eliteStrategy.setBestToPopulation(population);
+      eliteStrategy.setBestToPopulation(population);
+      print('Dodanie najlepszych');
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(' ');
+      print(' ');
     }
+    gradeStrategy.evaluate(population);
+    print('**********OSTATECZNA POPULACJA*******');
+    print(population.chromosomes);
+    print(population.getPopulationAmount());
+    print(' ');
     findTheBest(population);
   }
 

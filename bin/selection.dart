@@ -4,6 +4,10 @@ import 'chromosome.dart';
 import 'population.dart';
 
 abstract class Selection {
+  static const BEST = 'best';
+  static const ROULETTE = 'roulette';
+  static const TOURNAMENT = 'tournament';
+
   Population selection(Population population);
 
   static Chromosome getBest(List<Chromosome> chromosomes) {
@@ -20,15 +24,21 @@ class Best implements Selection {
 
   @override
   Population selection(Population population) {
-    // population.getChromosomes().sort((a, b) => b.getGrade().compareTo(a.getGrade()));
-    //
-    // var selectionElements = (population.getChromosomes().length * selectionProbability).toInt();
-    //
-    // for(var i = 0; i< selectionElements ;i++){
-    //   bestChromosome.add(population.getChromosomes()[i]);
-    // }
-    //
-    // population.setChromosomes(bestChromosome);
+    population
+        .getChromosomes()
+        .sort((a, b) => b.getGrade().compareTo(a.getGrade()));
+
+    var selectionElements =
+        (population.getChromosomes().length * selectionProbability).toInt();
+
+    for (var i = 0; i < selectionElements; i++) {
+      bestChromosome.add(population.getChromosomes()[i]);
+    }
+
+    population.setChromosomes(bestChromosome);
+    population.setPopulationAmount(bestChromosome.length);
+
+    bestChromosome = [];
 
     return population;
   }
@@ -69,6 +79,7 @@ class Roulette implements Selection {
       finalChromosomes.add(population.getChromosomes()[chromosomeIndexWinner]);
     }
 
+    population.setPopulationAmount(finalChromosomes.length); // TODO why???
     population.setChromosomes(finalChromosomes);
     return population;
   }
@@ -79,7 +90,7 @@ class Tournament implements Selection {
   final int ladderLength;
   final rand = Random();
 
-  Tournament({this.groupSize = 2, this.ladderLength = 1});
+  Tournament({this.groupSize = 3, this.ladderLength = 1});
 
   @override
   Population selection(Population population) {
@@ -90,6 +101,7 @@ class Tournament implements Selection {
       winningChromosomes = tournamentStage(winningChromosomes);
     }
 
+    population.setPopulationAmount(winningChromosomes.length); // TODO why???
     population.setChromosomes(winningChromosomes);
     return population;
   }
