@@ -1,6 +1,6 @@
+import 'dart:collection';
 import 'dart:math';
 
-import 'chromosome.dart';
 import 'population.dart';
 
 abstract class Mutation {
@@ -49,24 +49,82 @@ class OnePointMutation implements Mutation {
 
 class TwoPointsMutation implements Mutation {
   var mutationProbability;
+  var rnd = Random();
 
   TwoPointsMutation(this.mutationProbability);
 
   @override
   Population mutation(Population population) {
-    // TODO: implement mutation
+    for (var i = 0; i < population.getPopulationAmount(); i++) {
+      for (var k = 0; k < 2; k++) {
+        var mutationChance = rnd.nextDouble();
+        if (mutationChance <= mutationProbability) {
+          var mutationPoints = SplayTreeSet();
+          do {
+            mutationPoints.add(
+                (rnd.nextDouble() * (population.getChromosomeSize())).toInt());
+          } while (mutationPoints.length != 2);
+
+          for (var z = 0; z < 2; z++) {
+            var chromosomes = population.getChromosomes();
+            var listGene = chromosomes.elementAt(i).getProperGenes(k);
+
+            var setBit;
+            if (listGene[mutationPoints.elementAt(z)] == 1) {
+              setBit = 0;
+            } else {
+              setBit = 1;
+            }
+
+            if (listGene[mutationPoints.elementAt(z)] == 0) {
+              setBit = 1;
+            } else {
+              setBit = 0;
+            }
+
+            listGene[mutationPoints.elementAt(z)] = setBit;
+            population.setChromosomes(chromosomes);
+          }
+        }
+      }
+    }
     return population;
   }
 }
 
 class EdgeMutation implements Mutation {
   var mutationProbability;
+  var rnd = Random();
 
   EdgeMutation(this.mutationProbability);
 
   @override
   Population mutation(Population population) {
-    // TODO: implement mutation
+    for (var i = 0; i < population.getPopulationAmount(); i++) {
+      for (var k = 0; k < 2; k++) {
+        var mutationChance = rnd.nextDouble();
+        if (mutationChance <= mutationProbability) {
+          var chromosomes = population.getChromosomes();
+          var listGene = chromosomes.elementAt(i).getProperGenes(k);
+
+          var setBit;
+          if (listGene[population.getChromosomeSize() - 1] == 1) {
+            setBit = 0;
+          } else {
+            setBit = 1;
+          }
+
+          if (listGene[population.getChromosomeSize() - 1] == 0) {
+            setBit = 1;
+          } else {
+            setBit = 0;
+          }
+
+          listGene[population.getChromosomeSize() - 1] = setBit;
+          population.setChromosomes(chromosomes);
+        }
+      }
+    }
     return population;
   }
 }

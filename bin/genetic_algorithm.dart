@@ -65,6 +65,13 @@ class GeneticAlgorithm {
       print(" ");
 
       inversion.inversion(population);
+      gradeStrategy.evaluate(population);
+      print("Po inwersji");
+      print(population.chromosomes);
+      print(population.getPopulationAmount());
+      print(" ");
+
+
       eliteStrategy.setBestToPopulation(population);
       print("Dodanie najlepszych");
       print(population.chromosomes);
