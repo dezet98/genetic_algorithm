@@ -24,6 +24,8 @@ class Best implements Selection {
     population.setChromosomes(bestChromosome);
     population.setPopulationAmount(bestChromosome.length);
 
+    bestChromosome = [];
+
     return population;
   }
 }
