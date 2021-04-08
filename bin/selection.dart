@@ -69,8 +69,7 @@ class Roulette implements Selection {
     winningProbabilities.last = 1.0;
 
     var selectionElements =
-        (population.getChromosomes().length * selectionProbability)
-            .toInt(); // this same like above, is good???
+        (population.getChromosomes().length * selectionProbability).toInt();
 
     for (var i = 0; i < selectionElements; i++) {
       var random = rand.nextDouble();
@@ -79,7 +78,7 @@ class Roulette implements Selection {
       finalChromosomes.add(population.getChromosomes()[chromosomeIndexWinner]);
     }
 
-    population.setPopulationAmount(finalChromosomes.length); // TODO why???
+    population.setPopulationAmount(finalChromosomes.length);
     population.setChromosomes(finalChromosomes);
     return population;
   }
@@ -101,7 +100,7 @@ class Tournament implements Selection {
       winningChromosomes = tournamentStage(winningChromosomes);
     }
 
-    population.setPopulationAmount(winningChromosomes.length); // TODO why???
+    population.setPopulationAmount(winningChromosomes.length);
     population.setChromosomes(winningChromosomes);
     return population;
   }

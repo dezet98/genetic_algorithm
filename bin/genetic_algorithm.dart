@@ -67,11 +67,10 @@ class GeneticAlgorithm {
 
       inversion.inversion(population);
       gradeStrategy.evaluate(population);
-      print("Po inwersji");
+      print('Po inwersji');
       print(population.chromosomes);
       print(population.getPopulationAmount());
-      print(" ");
-
+      print(' ');
 
       eliteStrategy.setBestToPopulation(population);
       print('Dodanie najlepszych');
