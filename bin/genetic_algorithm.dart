@@ -1,3 +1,6 @@
+import 'dart:io' show File, FileMode, Platform;
+import 'package:path/path.dart' show dirname;
+
 import 'dart:math';
 
 import 'cross.dart';
@@ -22,6 +25,9 @@ class GeneticAlgorithm {
   List<double> bestInEpoch = [];
   List<double> averageInEpoch = [];
   List<double> standardDeviation = [];
+  File file;
+  var partialPath;
+  var path;
 
   GeneticAlgorithm(
       {this.epochsAmount,
@@ -34,6 +40,12 @@ class GeneticAlgorithm {
       this.population}) {
     populationSizeWithoutElite =
         population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
+    {
+      partialPath = dirname(Platform.script.path.toString());
+      path = partialPath.substring(0, partialPath.length - 4) + '/results.txt';
+      file = File(path);
+      file.writeAsString('');
+    }
   }
 
   Result runAlgorithm() {
@@ -44,7 +56,7 @@ class GeneticAlgorithm {
       averageInEpoch.add(calculateAverage(population));
       standardDeviation.add(calculateStandardDeviation(population));
 
-      printPopulation('**************Poczatek epoki $i**************');
+      printPopulation('************** Początek epoki $i **************');
 
       population = eliteStrategy.getBestFromPopulation(population);
       printPopulation('Po Elite: ');
@@ -66,12 +78,13 @@ class GeneticAlgorithm {
 
       eliteStrategy.setBestToPopulation(population);
       printPopulation('Dodanie najlepszych');
+      saveEpochToFile(population, i.toString());
     }
     gradeStrategy.evaluate(population);
     bestInEpoch.add(findTheBest(population));
     averageInEpoch.add(calculateAverage(population));
     standardDeviation.add(calculateStandardDeviation(population));
-    printPopulation('**********OSTATECZNA POPULACJA*******');
+    printPopulation('********** Ostateczna populacja *******');
 
     var result = Result(
         epochsAmount: epochsAmount,
@@ -93,6 +106,24 @@ class GeneticAlgorithm {
     }
     print(population.getPopulationAmount());
     print(' ');
+  }
+
+  void saveEpochToFile(Population population, String epoch) {
+    file.writeAsStringSync('Epoch $epoch\n', mode: FileMode.append);
+    if (gradeStrategy is MinimalGrade) {
+      for (var i = 0; i < population.getPopulationAmount(); i++) {
+        file.writeAsStringSync((1/population.chromosomes[i].grade).toString(),
+            mode: FileMode.append);
+        file.writeAsStringSync('\n', mode: FileMode.append);
+      }
+    } else {
+      for (var i = 0; i < population.getPopulationAmount(); i++) {
+        file.writeAsStringSync(population.chromosomes[i].toString(),
+            mode: FileMode.append);
+        file.writeAsStringSync('\n', mode: FileMode.append);
+      }
+    }
+    file.writeAsStringSync('\n\n', mode: FileMode.append);
   }
 
   double findTheBest(Population population) {
