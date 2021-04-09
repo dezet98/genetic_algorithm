@@ -47,12 +47,12 @@ class Best implements Selection {
 class Roulette implements Selection {
   final rand = Random();
   final selectionProbability;
-  final finalChromosomes = <Chromosome>[];
 
   Roulette(this.selectionProbability);
 
   @override
   Population selection(Population population) {
+    final finalChromosomes = <Chromosome>[];
     var sumOfMatches = 0.0;
     population.chromosomes.forEach((element) {
       sumOfMatches += element.getGrade();
