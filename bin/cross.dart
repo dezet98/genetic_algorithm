@@ -35,7 +35,6 @@ class OnePointCross implements Cross {
         parents.add(
             (rnd.nextDouble() * (newPopulation.getPopulationAmount())).toInt());
       } while (parents.length != 2);
-
       var crossingChance = rnd.nextDouble();
       if (crossingChance <= crossProbability) {
         var firstNewChromosome = <List<int>>[];

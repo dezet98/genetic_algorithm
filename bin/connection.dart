@@ -2,26 +2,27 @@ import 'cross.dart';
 import 'genetic_algorithm_create.dart';
 import 'grade_strategy.dart';
 import 'mutation.dart';
+import 'result.dart';
 import 'selection.dart';
 
 class Connection {
   Connection();
 
-  void connect() {
-    GeneticAlgorithmCreate(
+  Result connect() {
+    return GeneticAlgorithmCreate(
       startRange: -10,
       endRange: 10,
-      populationAmount: 15,
-      epochsAmount: 10,
-      selectionProbability: 0.2,
+      populationAmount: 100,
+      epochsAmount: 20,
+      selectionProbability: 0.5,
       crossProbability: 0.2,
       mutationProbability: 0.2,
       inversionProbability: 0.2,
-      eliteStrategyAmount: 4,
+      eliteStrategyAmount: 1,
       gradeStrategy: GradeStrategy.MAXIMAL_GRADE,
-      selection: Selection.ROULETTE,
-      cross: Cross.ONE_POINT_CROSS,
-      mutation: Mutation.ONE_POINT_MUTATION,
-    );
+      selection: Selection.TOURNAMENT,
+      cross: Cross.HOMOGENEOUS_CROSS,
+      mutation: Mutation.EDGE_MUTATION,
+    ).createGeneticAlgorithm();
   }
 }

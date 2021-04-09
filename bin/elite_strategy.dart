@@ -43,7 +43,8 @@ class EliteStrategy {
       chromosomes.add(eliteChromosome[i]);
     }
     population.setChromosomes(chromosomes);
-    population.setPopulationAmount(population.getPopulationAmount() + eliteChromosome.length);
+    population.setPopulationAmount(
+        population.getPopulationAmount() + eliteChromosome.length);
     eliteChromosome = [];
   }
 }

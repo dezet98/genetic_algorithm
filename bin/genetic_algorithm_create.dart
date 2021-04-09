@@ -5,6 +5,7 @@ import 'grade_strategy.dart';
 import 'inversion.dart';
 import 'mutation.dart';
 import 'population.dart';
+import 'result.dart';
 import 'selection.dart';
 
 class GeneticAlgorithmCreate {
@@ -37,9 +38,7 @@ class GeneticAlgorithmCreate {
       this.gradeStrategy,
       this.selection,
       this.cross,
-      this.mutation}) {
-    createGeneticAlgorithm();
-  }
+      this.mutation});
 
   Selection chooseSelection(selection) {
     Selection selectionChoose;
@@ -117,7 +116,7 @@ class GeneticAlgorithmCreate {
     return gradeStrategyChoose;
   }
 
-  void createGeneticAlgorithm() {
+  Result createGeneticAlgorithm() {
     var inversion = Inversion(inversionProbability);
     var eliteStrategy = EliteStrategy(eliteStrategyAmount);
     var selection = chooseSelection(this.selection);
@@ -126,7 +125,8 @@ class GeneticAlgorithmCreate {
     var gradeStrategy = gradeStrategyChoose(this.gradeStrategy);
     var population = Population(startRange, endRange, populationAmount);
 
-    GeneticAlgorithm(epochsAmount, inversion, eliteStrategy, selection, cross,
-        mutation, gradeStrategy, population);
+    return GeneticAlgorithm(epochsAmount, inversion, eliteStrategy, selection,
+            cross, mutation, gradeStrategy, population)
+        .runAlgorithm();
   }
 }

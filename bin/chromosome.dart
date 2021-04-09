@@ -32,10 +32,9 @@ class Chromosome {
   }
 
   List<int> getProperGenes(k) {
-    if(k == 1){
+    if (k == 1) {
       return firstGenes;
-    }
-    else{
+    } else {
       return secondGenes;
     }
   }
