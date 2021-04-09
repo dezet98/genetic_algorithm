@@ -11,7 +11,7 @@ class Connection {
     GeneticAlgorithmCreate(
       startRange: -10,
       endRange: 10,
-      populationAmount: 15,
+      populationAmount: 150,
       epochsAmount: 10,
       selectionProbability: 0.2,
       crossProbability: 0.2,
