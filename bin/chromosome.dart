@@ -1,7 +1,7 @@
 class Chromosome {
   List<int> firstGenes;
   List<int> secondGenes;
-  double grade;
+  late double grade;
 
   Chromosome(this.firstGenes, this.secondGenes);
 

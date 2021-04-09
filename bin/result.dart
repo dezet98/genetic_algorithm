@@ -7,10 +7,10 @@ class Result {
   List<double> standardDeviation = [];
 
   Result(
-      {this.epochsAmount,
-      this.populationSize,
-      this.algorithmTime,
-      this.bestInEpoch,
-      this.averageInEpoch,
-      this.standardDeviation});
+      {required this.epochsAmount,
+      required this.populationSize,
+      required this.algorithmTime,
+      required this.bestInEpoch,
+      required this.averageInEpoch,
+      required this.standardDeviation});
 }

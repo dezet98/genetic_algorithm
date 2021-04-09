@@ -5,10 +5,10 @@ import 'chromosome.dart';
 
 class Population {
   static const CHROMOSOME_ACCURACY = 6;
-  double startRange;
-  double endRange;
-  int populationAmount;
-  int chromosomeSize;
+  late double startRange;
+  late double endRange;
+  late int populationAmount;
+  late int chromosomeSize;
   List<Chromosome> chromosomes = [];
 
   Population(this.startRange, this.endRange, this.populationAmount) {

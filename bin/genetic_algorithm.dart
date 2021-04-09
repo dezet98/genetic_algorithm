@@ -21,23 +21,23 @@ class GeneticAlgorithm {
   Mutation mutation;
   GradeStrategy gradeStrategy;
   Population population;
-  int populationSizeWithoutElite;
   List<double> bestInEpoch = [];
   List<double> averageInEpoch = [];
   List<double> standardDeviation = [];
-  File file;
-  var partialPath;
-  var path;
+  late int populationSizeWithoutElite;
+  late File file;
+  late var partialPath;
+  late var path;
 
   GeneticAlgorithm(
-      {this.epochsAmount,
-      this.inversion,
-      this.eliteStrategy,
-      this.selection,
-      this.cross,
-      this.mutation,
-      this.gradeStrategy,
-      this.population}) {
+      {required this.epochsAmount,
+      required this.inversion,
+      required this.eliteStrategy,
+      required this.selection,
+      required this.cross,
+      required this.mutation,
+      required this.gradeStrategy,
+      required this.population}) {
     populationSizeWithoutElite =
         population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
     {
@@ -112,7 +112,7 @@ class GeneticAlgorithm {
     file.writeAsStringSync('Epoch $epoch\n', mode: FileMode.append);
     if (gradeStrategy is MinimalGrade) {
       for (var i = 0; i < population.getPopulationAmount(); i++) {
-        file.writeAsStringSync((1/population.chromosomes[i].grade).toString(),
+        file.writeAsStringSync((1 / population.chromosomes[i].grade).toString(),
             mode: FileMode.append);
         file.writeAsStringSync('\n', mode: FileMode.append);
       }
@@ -164,8 +164,9 @@ class GeneticAlgorithm {
       average = (population
               .getChromosomes()
               .map((x) => 1 / x.getGrade())
-              .fold(0, (a, b) => a + b)) /
-          population.getPopulationAmount();
+              .fold(0, (a, b) => a + b));
+
+      average /= population.getPopulationAmount();
 
       for (var i = 0; i < population.getPopulationAmount(); i++) {
         sum +=
@@ -175,8 +176,9 @@ class GeneticAlgorithm {
       average = (population
               .getChromosomes()
               .map((x) => x.getGrade())
-              .fold(0, (a, b) => a + b)) /
-          population.getPopulationAmount();
+              .fold(0, (a, b) => a + b));
+
+      average /= population.getPopulationAmount();
 
       for (var i = 0; i < population.getPopulationAmount(); i++) {
         sum += pow((population.getChromosomes()[i].getGrade() - average), 2);

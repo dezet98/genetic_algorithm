@@ -19,7 +19,7 @@ class Connection {
       mutationProbability: 0.2,
       inversionProbability: 0.2,
       eliteStrategyAmount: 1,
-      gradeStrategy: GradeStrategy.MINIMAL_GRADE,
+      gradeStrategy: GradeStrategy.MAXIMAL_GRADE,
       selection: Selection.TOURNAMENT,
       cross: Cross.HOMOGENEOUS_CROSS,
       mutation: Mutation.EDGE_MUTATION,

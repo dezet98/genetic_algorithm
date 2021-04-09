@@ -24,22 +24,22 @@ class GeneticAlgorithmCreate {
   String mutation;
 
   GeneticAlgorithmCreate(
-      {this.startRange,
-      this.endRange,
-      this.populationAmount,
-      this.epochsAmount,
-      this.selectionProbability,
-      this.crossProbability,
-      this.mutationProbability,
-      this.inversionProbability,
-      this.eliteStrategyAmount,
-      this.gradeStrategy,
-      this.selection,
-      this.cross,
-      this.mutation});
+      {required this.startRange,
+      required this.endRange,
+      required this.populationAmount,
+      required this.epochsAmount,
+      required this.selectionProbability,
+      required this.crossProbability,
+      required this.mutationProbability,
+      required this.inversionProbability,
+      required this.eliteStrategyAmount,
+      required this.gradeStrategy,
+      required this.selection,
+      required this.cross,
+      required this.mutation});
 
   Selection chooseSelection(selection) {
-    Selection selectionChoose;
+    late Selection selectionChoose;
     switch (selection) {
       case Selection.BEST:
         selectionChoose = Best(selectionProbability);
@@ -58,7 +58,7 @@ class GeneticAlgorithmCreate {
   }
 
   Cross crossChoose(cross) {
-    Cross crossChoose;
+    late Cross crossChoose;
     switch (cross) {
       case Cross.ONE_POINT_CROSS:
         crossChoose = OnePointCross(crossProbability);
@@ -81,7 +81,7 @@ class GeneticAlgorithmCreate {
   }
 
   Mutation mutationChoose(mutation) {
-    Mutation mutationChoose;
+    late Mutation mutationChoose;
     switch (mutation) {
       case Mutation.ONE_POINT_MUTATION:
         mutationChoose = OnePointMutation(mutationProbability);
@@ -100,7 +100,7 @@ class GeneticAlgorithmCreate {
   }
 
   GradeStrategy gradeStrategyChoose(gradeStrategy) {
-    GradeStrategy gradeStrategyChoose;
+    late GradeStrategy gradeStrategyChoose;
     switch (gradeStrategy) {
       case GradeStrategy.MAXIMAL_GRADE:
         gradeStrategyChoose = MaximalGrade();
