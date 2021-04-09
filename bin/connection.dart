@@ -13,7 +13,7 @@ class Connection {
       startRange: -10,
       endRange: 10,
       populationAmount: 100,
-      epochsAmount: 20,
+      epochsAmount: 200,
       selectionProbability: 0.5,
       crossProbability: 0.2,
       mutationProbability: 0.2,

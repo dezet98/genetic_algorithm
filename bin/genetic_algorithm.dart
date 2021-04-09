@@ -24,14 +24,14 @@ class GeneticAlgorithm {
   List<double> standardDeviation = [];
 
   GeneticAlgorithm(
-      this.epochsAmount,
+      {this.epochsAmount,
       this.inversion,
       this.eliteStrategy,
       this.selection,
       this.cross,
       this.mutation,
       this.gradeStrategy,
-      this.population) {
+      this.population}) {
     populationSizeWithoutElite =
         population.getPopulationAmount() - eliteStrategy.eliteStrategyAmount;
   }
@@ -60,11 +60,9 @@ class GeneticAlgorithm {
       gradeStrategy.evaluate(population);
       printPopulation('Po mutacji');
 
-
       inversion.inversion(population);
       gradeStrategy.evaluate(population);
       printPopulation('Po inwersji');
-
 
       eliteStrategy.setBestToPopulation(population);
       printPopulation('Dodanie najlepszych');
@@ -86,18 +84,16 @@ class GeneticAlgorithm {
     return result;
   }
 
-  void printPopulation(String text){
+  void printPopulation(String text) {
     print(text);
-    if(gradeStrategy is MinimalGrade){
-      print(population.chromosomes.map((e) => 1/e.getGrade()).toList());
-    }
-    else{
+    if (gradeStrategy is MinimalGrade) {
+      print(population.chromosomes.map((e) => 1 / e.getGrade()).toList());
+    } else {
       print(population.chromosomes);
     }
     print(population.getPopulationAmount());
     print(' ');
   }
-
 
   double findTheBest(Population population) {
     var bestChromosome = population.getChromosomes().reduce(
@@ -118,7 +114,7 @@ class GeneticAlgorithm {
     if (gradeStrategy is MinimalGrade) {
       sum = population
           .getChromosomes()
-          .map((x) => 1/x.getGrade())
+          .map((x) => 1 / x.getGrade())
           .fold(0, (a, b) => a + b);
     } else {
       sum = population
@@ -141,7 +137,8 @@ class GeneticAlgorithm {
           population.getPopulationAmount();
 
       for (var i = 0; i < population.getPopulationAmount(); i++) {
-        sum += pow((1/population.getChromosomes()[i].getGrade() - average), 2);
+        sum +=
+            pow((1 / population.getChromosomes()[i].getGrade() - average), 2);
       }
     } else {
       average = (population

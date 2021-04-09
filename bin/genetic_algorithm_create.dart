@@ -23,18 +23,16 @@ class GeneticAlgorithmCreate {
   String cross;
   String mutation;
 
-// todo where is
   GeneticAlgorithmCreate(
       {this.startRange,
       this.endRange,
       this.populationAmount,
       this.epochsAmount,
       this.selectionProbability,
-      this.crossProbability, // prawdopodobieństwo krzyżowania to 80-90%
-      this.mutationProbability, // prawdopodobieństwo mutacji to około 20%
+      this.crossProbability,
+      this.mutationProbability,
       this.inversionProbability,
       this.eliteStrategyAmount,
-      // strategia elitarna podczas oceny wybierz najlepszego lub % najlepszych i dodaj ich do nowej populacji od razu
       this.gradeStrategy,
       this.selection,
       this.cross,
@@ -125,8 +123,15 @@ class GeneticAlgorithmCreate {
     var gradeStrategy = gradeStrategyChoose(this.gradeStrategy);
     var population = Population(startRange, endRange, populationAmount);
 
-    return GeneticAlgorithm(epochsAmount, inversion, eliteStrategy, selection,
-            cross, mutation, gradeStrategy, population)
+    return GeneticAlgorithm(
+            epochsAmount: epochsAmount,
+            inversion: inversion,
+            eliteStrategy: eliteStrategy,
+            selection: selection,
+            cross: cross,
+            mutation: mutation,
+            gradeStrategy: gradeStrategy,
+            population: population)
         .runAlgorithm();
   }
 }
