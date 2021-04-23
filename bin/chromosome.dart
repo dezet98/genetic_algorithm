@@ -1,37 +1,13 @@
 class Chromosome {
-  List<int> firstGenes;
-  List<int> secondGenes;
+  double firstGenes;
+  double secondGenes;
   late double grade;
 
   Chromosome(this.firstGenes, this.secondGenes);
 
   Chromosome.fromChromosome(this.firstGenes, this.secondGenes, this.grade);
 
-  String firstGenesToString() {
-    var genesFirstString = StringBuffer();
-    for (var i = 0; i < firstGenes.length; i++) {
-      genesFirstString.write(firstGenes[i]);
-    }
-    return genesFirstString.toString();
-  }
-
-  String secondGenesToString() {
-    var genesSecondString = StringBuffer();
-    for (var i = 0; i < secondGenes.length; i++) {
-      genesSecondString.write(secondGenes[i]);
-    }
-    return genesSecondString.toString();
-  }
-
-  List<int> getFirstGenes() {
-    return firstGenes;
-  }
-
-  List<int> getSecondGenes() {
-    return secondGenes;
-  }
-
-  List<int> getProperGenes(k) {
+  double getProperGenes(k) {
     if (k == 1) {
       return firstGenes;
     } else {
@@ -39,16 +15,16 @@ class Chromosome {
     }
   }
 
-  double getGrade() {
-    return grade;
-  }
-
-  void setGrade(grade) {
-    this.grade = grade;
+  void setProperGenes(gene, k) {
+    if (k == 1) {
+      this.firstGenes = gene;
+    } else {
+      this.secondGenes = gene;
+    }
   }
 
   @override
   String toString() {
-    return grade.toString();
+    return firstGenes.toString();
   }
 }
